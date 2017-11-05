@@ -13,9 +13,6 @@ public class Server {
     private final int port = 4444;
     private CSVParser csvParser;
 
-//    static String clientMessage = null;
-//    static CSVParser csvParser;
-
     public static void main(String[] args) {
         Server csvServer = new Server("tempdata.CSV");
     }
