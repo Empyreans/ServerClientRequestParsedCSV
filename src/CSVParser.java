@@ -1,18 +1,8 @@
 import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderBuilder;
-import com.opencsv.bean.CsvToBean;
-import com.opencsv.bean.CsvToBeanBuilder;
-import com.opencsv.bean.MappingStrategy;
-
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.Reader;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Created by Empyreans on 29.10.2017.
@@ -32,25 +22,20 @@ public class CSVParser {
     public void parseCSVFile(FileReader fileReader) {
 
         CSVReader reader = new CSVReaderBuilder(fileReader).build();
-        Day tempDay = null; // nur am Anfang null
+        Day tempDay;
         String[] nextLine;
 
         try {
             while ((nextLine = reader.readNext()) != null) { // holt sich die nächste Zeile der .csv
 
-                // Fall 1: Day bereits vorhanden
-                if (tempDay != null && tempDay.getDate().equals(nextLine[0])) {
+                // Tag bereits vorhanden
+                if (dayAvailabe(nextLine[0]) != null){
+                    tempDay = dayAvailabe(nextLine[0]);
                     tempDay.addWeatherData(nextLine[1], nextLine[2]);
                 }
 
-                // Fall 2: leere Liste
-                if (tempDay == null) {
-                    tempDay = new Day(nextLine[0], nextLine[1], nextLine[2]);
-                    availableDays.add(tempDay);
-                }
-
-                // Fall 3: Day noch nicht vorhanden
-                if (!(tempDay.getDate().equals(nextLine[0]))) {
+                // Tag nicht vorhanden
+                if (dayAvailabe(nextLine[0]) == null){
                     tempDay = new Day(nextLine[0], nextLine[1], nextLine[2]);
                     availableDays.add(tempDay);
                 }
@@ -59,7 +44,6 @@ public class CSVParser {
         } catch (IOException e){
             e.printStackTrace();
         }
-//        System.out.println(printDayWeatherData("28.10.2017"));
     }
 
     public String printDayWeatherData(String dayString) {

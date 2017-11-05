@@ -28,7 +28,9 @@ public class Day {
             float celsiusFloat = Float.parseFloat(weatherData.getCelsius());
             avgTempFloat = avgTempFloat + celsiusFloat;
         }
-        avgTempFloat = avgTempFloat / 2;
+        if (weatherDataList.size() > 1){
+            avgTempFloat = avgTempFloat / 2;
+        }
         return Float.toString(avgTempFloat);
     }
 

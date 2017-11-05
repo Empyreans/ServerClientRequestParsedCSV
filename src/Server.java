@@ -14,7 +14,7 @@ public class Server {
     private CSVParser csvParser;
 
     public static void main(String[] args) {
-        Server csvServer = new Server("tempdata.CSV");
+        new Server("tempdata.CSV");
     }
 
     public Server(String fileName){
@@ -46,8 +46,7 @@ public class Server {
         }
     }
 
-    public String serverHandle(String clientMessage){
-
+    private String serverHandle(String clientMessage){
         if (requestParser(clientMessage) != null){
             return requestParser(clientMessage);
         } else {
@@ -55,7 +54,7 @@ public class Server {
         }
     }
 
-    public String requestParser(String date){
+    private String requestParser(String date){
         return csvParser.printDayWeatherData(date);
     }
 
