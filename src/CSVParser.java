@@ -9,7 +9,7 @@ import java.util.ArrayList;
  */
 public class CSVParser {
 
-    ArrayList<Day> availableDays = new ArrayList<>(); // HashMap<Day, ArrayList<WeatherData>> ?
+    ArrayList<Day> availableDays = new ArrayList<>();
 
     public CSVParser(String fileName) {
         try (FileReader fileReader = new FileReader(fileName)) {
@@ -29,8 +29,7 @@ public class CSVParser {
             while ((nextLine = reader.readNext()) != null) { // holt sich die nächste Zeile der .csv
 
                 // Tag bereits vorhanden
-                if (dayAvailabe(nextLine[0]) != null){
-                    tempDay = dayAvailabe(nextLine[0]);
+                if ((tempDay = dayAvailabe(nextLine[0])) != null){
                     tempDay.addWeatherData(nextLine[1], nextLine[2]);
                 }
 

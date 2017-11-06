@@ -11,7 +11,7 @@ public class Day {
 
     @CsvBindByName
     private String date;
-    private ArrayList<WeatherData> weatherDataList = new ArrayList<>(); // hier aufgehört: Rest muss an ArrayList angepasst werden, dachte vorher Liste wäre ein konkreter Typ
+    private ArrayList<WeatherData> weatherDataList = new ArrayList<>();
 
     public Day(String date, String time, String celsius){
         this.date = date;
@@ -54,10 +54,6 @@ public class Day {
             }
         }
         return Float.toString(lowTempFloat);
-    }
-
-    public List<WeatherData> getWeatherDataList(){
-        return weatherDataList;
     }
 
     public String getDate(){
