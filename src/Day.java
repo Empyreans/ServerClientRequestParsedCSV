@@ -29,7 +29,7 @@ public class Day {
             avgTempFloat = avgTempFloat + celsiusFloat;
         }
         if (weatherDataList.size() > 1){
-            avgTempFloat = avgTempFloat / 2;
+            avgTempFloat = avgTempFloat / weatherDataList.size();
         }
         return Float.toString(avgTempFloat);
     }
@@ -56,10 +56,6 @@ public class Day {
         return Float.toString(lowTempFloat);
     }
 
-    public String getDate(){
-        return date;
-    }
-
     public String getDayWeatherData(){
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(date+"\n");
@@ -70,5 +66,13 @@ public class Day {
             stringBuilder.append(String.format("%s %10s°\n" ,weatherData.getTime(), weatherData.getCelsius()));
         }
         return stringBuilder.toString();
+    }
+
+    public String getDate(){
+        return date;
+    }
+
+    public ArrayList<WeatherData> getWeatherDataList() {
+        return weatherDataList;
     }
 }

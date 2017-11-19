@@ -46,16 +46,16 @@ public class Server {
         }
     }
 
-    private String serverHandle(String clientMessage){
-        if (requestParser(clientMessage) != null){
-            return requestParser(clientMessage);
+    private String serverHandle(String clientMessage) {
+        if (csvParser.dayAvailabe(clientMessage) != null){
+            if (csvParser.countAvailableWeatherDataForDay(clientMessage) != 24) {
+                return "keine 24 Wetterdaten fuer den Tag vorhanden!";
+            } else {
+                return csvParser.printDayWeatherData(clientMessage);
+            }
         } else {
-            return "ungueltige Eingabe!, bitte ueberpruefen . . .";
+            return "Tag nicht vorhanden";
         }
-    }
-
-    private String requestParser(String date){
-        return csvParser.printDayWeatherData(date);
     }
 
 }

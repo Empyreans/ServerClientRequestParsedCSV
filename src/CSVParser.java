@@ -53,6 +53,16 @@ public class CSVParser {
         return null;
     }
 
+    public int countAvailableWeatherDataForDay(String dayString){
+        Day day = dayAvailabe(dayString);
+        if (day != null){
+            return day.getWeatherDataList().size();
+        } else {
+            return 0;
+        }
+    }
+
+    // durchsucht die verfuegbaren Tage nach dem gefragten Tag und gibt diesen bei Vorhandenheit zurück
     public Day dayAvailabe(String day){
         for (Day d:availableDays){
             if (d.getDate().equals(day)){
