@@ -45,6 +45,15 @@ public class CSVParser {
         }
     }
 
+    public Day dayAvailabe(String day){
+        for (Day d:availableDays){
+            if (d.getDate().equals(day)){
+                return d;
+            }
+        }
+        return null;
+    }
+
     public String printDayWeatherData(String dayString) {
         Day day = dayAvailabe(dayString);
         if (day != null){
@@ -62,14 +71,6 @@ public class CSVParser {
         }
     }
 
-    // durchsucht die verfuegbaren Tage nach dem gefragten Tag und gibt diesen bei Vorhandenheit zurück
-    public Day dayAvailabe(String day){
-        for (Day d:availableDays){
-            if (d.getDate().equals(day)){
-                return d;
-            }
-        }
-        return null;
-    }
+
 
 }

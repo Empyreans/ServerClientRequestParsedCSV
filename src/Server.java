@@ -4,6 +4,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketException;
 
 /**
  * Created by Empyreans on 31.10.2017.
@@ -18,12 +19,11 @@ public class Server {
     }
 
     public Server(String fileName){
-        initializeParser(fileName);
-        initializeServer(port);
-    }
+        csvParser = new CSVParser(fileName);
+        while (true){
+            initializeServer(port);
+        }
 
-    public void initializeParser(String filename){
-        csvParser = new CSVParser(filename);
     }
 
     public void initializeServer(int port){
@@ -42,7 +42,7 @@ public class Server {
             }
 
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Client hat Verbindung abgebrochen, warte auf neue Verbindung");
         }
     }
 

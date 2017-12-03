@@ -1,8 +1,6 @@
 import com.opencsv.bean.CsvBindByName;
-
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+
 
 /**
  * Created by Empyreans on 29.10.2017.
@@ -11,6 +9,7 @@ public class Day {
 
     @CsvBindByName
     private String date;
+
     private ArrayList<WeatherData> weatherDataList = new ArrayList<>();
 
     public Day(String date, String time, String celsius){
