@@ -8,13 +8,11 @@ import java.util.ArrayList;
 public class Day {
 
     @CsvBindByName
-    private String date;
-
+    private String date; // Date als Datentyp nehmen
     private ArrayList<WeatherData> weatherDataList = new ArrayList<>();
 
-    public Day(String date, String time, String celsius){
+    public Day(String date){
         this.date = date;
-        weatherDataList.add(new WeatherData(time, celsius));
     }
 
     public void addWeatherData(String time, String celsius){

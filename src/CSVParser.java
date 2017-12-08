@@ -9,7 +9,7 @@ import java.util.ArrayList;
  */
 public class CSVParser {
 
-    ArrayList<Day> availableDays = new ArrayList<>();
+    private ArrayList<Day> availableDays = new ArrayList<>();
 
     public CSVParser(String fileName) {
         try (FileReader fileReader = new FileReader(fileName)) {
@@ -19,7 +19,7 @@ public class CSVParser {
         }
     }
 
-    public void parseCSVFile(FileReader fileReader) {
+    private void parseCSVFile(FileReader fileReader) {
 
         CSVReader reader = new CSVReaderBuilder(fileReader).build();
         Day tempDay;
@@ -35,7 +35,8 @@ public class CSVParser {
 
                 // Tag nicht vorhanden
                 if (dayAvailabe(nextLine[0]) == null){
-                    tempDay = new Day(nextLine[0], nextLine[1], nextLine[2]);
+                    tempDay = new Day(nextLine[0]);
+                    tempDay.addWeatherData(nextLine[1], nextLine[2]);
                     availableDays.add(tempDay);
                 }
 
@@ -54,7 +55,7 @@ public class CSVParser {
         return null;
     }
 
-    public String printDayWeatherData(String dayString) {
+    public String requestDayWeatherData(String dayString) {
         Day day = dayAvailabe(dayString);
         if (day != null){
             return day.getDayWeatherData();

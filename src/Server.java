@@ -4,29 +4,20 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.net.SocketException;
 
 /**
  * Created by Empyreans on 31.10.2017.
  */
 public class Server {
 
-    private final int port = 4444;
     private CSVParser csvParser;
 
-    public static void main(String[] args) {
-        new Server("tempdata.CSV");
-    }
-
-    public Server(String fileName){
+    public Server(String fileName, int port){
         csvParser = new CSVParser(fileName);
-        while (true){
-            initializeServer(port);
-        }
-
+        initializeServer(port);
     }
 
-    public void initializeServer(int port){
+    private void initializeServer(int port){
         try (ServerSocket serverSocket = new ServerSocket(port);
              Socket clientSocket = serverSocket.accept();
              PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
@@ -36,7 +27,6 @@ public class Server {
             out.println("Bitte geben sie ein Datum in folgendem Format ein: tt.mm.jjjj");
 
             String clientMessage;
-
             while ((clientMessage = in.readLine()) != null){
                 out.println(serverHandle(clientMessage));
             }
@@ -47,15 +37,17 @@ public class Server {
     }
 
     private String serverHandle(String clientMessage) {
+        String parserResponse;
         if (csvParser.dayAvailabe(clientMessage) != null){
             if (csvParser.countAvailableWeatherDataForDay(clientMessage) != 24) {
-                return "keine 24 Wetterdaten fuer den Tag vorhanden!";
+                parserResponse = "keine 24 Wetterdaten für den Tag vorhanden";
             } else {
-                return csvParser.printDayWeatherData(clientMessage);
+                parserResponse = csvParser.requestDayWeatherData(clientMessage);
             }
         } else {
-            return "Tag nicht vorhanden";
+            parserResponse = "Tag nicht vorhanden";
         }
+        return parserResponse;
     }
 
 }

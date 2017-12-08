@@ -10,10 +10,11 @@ import java.util.Scanner;
  */
 public class Client {
 
-    static int port = 4444;
+    public Client(int port){
+        connectClientToServer(port);
+    }
 
-    public static void main(String[] args) {
-
+    private void connectClientToServer(int port){
         Scanner scanner = new Scanner(System.in);
 
         try (
@@ -22,13 +23,20 @@ public class Client {
                 BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
 
             char[] serverMessage = new char[3000];
+
             StringBuilder stringBuilder = new StringBuilder();
 
             while ((in.read(serverMessage)) > 0){
-                stringBuilder.append(serverMessage);
+
+                String serverMessageString = new String(serverMessage);
+                String serverMessageStringSplit = serverMessageString.split("\u0000")[0];
+
+                stringBuilder.append(serverMessageStringSplit);
                 System.out.println(stringBuilder.toString());
+
                 String clientMessage = scanner.next();
                 out.println(clientMessage);
+
                 serverMessage = new char[3000];
                 stringBuilder.setLength(0);
             }
@@ -37,4 +45,5 @@ public class Client {
             e.printStackTrace();
         }
     }
+
 }
